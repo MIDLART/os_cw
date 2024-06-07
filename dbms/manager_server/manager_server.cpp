@@ -545,7 +545,6 @@ int transfer_left(
     strcpy(msg.schema_name, path.schema.c_str());
     strcpy(msg.collection_name, path.collection.c_str());
     
-    // GET CURRENT SERVER MIN
     msg.mtype = strg_servers.at(id);
     msg.status = db_ipc::command_status::OK;
     msg.cmd = db_ipc::command::OBTAIN_MIN;
@@ -556,7 +555,6 @@ int transfer_left(
     
     if (rcv == -1 || msg.status != db_ipc::command_status::OK) return -1;
     
-    // GET NEXT TO CURRENT SERVER MIN
     msg.mtype = strg_servers.at(id);
     msg.status = db_ipc::command_status::OK;
     msg.cmd = db_ipc::command::OBTAIN_NEXT;
@@ -574,7 +572,6 @@ int transfer_left(
     
     new_separator = msg.login;
     
-    // SEND MIN TO THE LEFT SERVER
     msg.mtype = strg_servers.at(id - 1);
     msg.cmd = db_ipc::command::ADD;
     
@@ -584,7 +581,6 @@ int transfer_left(
     
     if (rcv == -1 || msg.status != db_ipc::command_status::OK) return -1;
     
-    // DISPOSE MIN FROM CUR SERVER
     msg.mtype = strg_servers.at(id);
     msg.cmd = db_ipc::command::DISPOSE;
     
